@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context.xsd
+	   		http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:interceptors>
+		<!--All========================== -->
+		<mvc:interceptor>
+			<mvc:mapping path="/product/summary.htm" />
+			<bean class="ptithcm.interceptor.SecurityInterceptor" />
+		</mvc:interceptor>
+		
+		<!--All========================== -->
+		<mvc:interceptor>
+			<mvc:mapping path="/login.htm" />
+			<mvc:mapping path="/register.htm" />
+			<bean class="ptithcm.interceptor.LoggedInterceptor" />
+		</mvc:interceptor>
+		
+		<!--All========================== -->
+		<mvc:interceptor>
+			<mvc:mapping path="/product/logout.htm" />
+			<bean class="ptithcm.interceptor.NotLoggedInInterceptor" />
+		</mvc:interceptor>
+
+		<!--ADMIN========================= -->
+		<mvc:interceptor>
+			<mvc:mapping path="/admin.htm" />
+			
+			<mvc:mapping path="/edit-cate/check.htm" />
+			<mvc:mapping path="/edit-cate/**" />
+			<mvc:mapping path="/delete-cate/**" />
+			<mvc:mapping path="/insert-cate.htm" />
+			<mvc:mapping path="/save-cate.htm" />
+			
+			<mvc:mapping path="/edit-product.htm" />
+			<mvc:mapping path="/edit-product/check.htm"/>
+			<mvc:mapping path="/delete-product/**" />
+			<mvc:mapping path="/insert-product.htm" />
+			<mvc:mapping path="/save-product.htm" />
+			<bean class="ptithcm.interceptor.AdminInterceptor" />
+		</mvc:interceptor>
+
+		<!--USER========================= -->
+		<mvc:interceptor>
+			<mvc:mapping path="/index.htm" />
+			<mvc:mapping path="/product/summary.htm" />
+			<mvc:mapping path="/product/search.htm" />
+			<mvc:mapping path="/product_details/**" />
+			<mvc:mapping path="/category/**" />
+			<bean class="ptithcm.interceptor.UserInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/user-login.htm" />
+			<bean class="ptithcm.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/index.htm" />
+			<mvc:mapping path="/product/search.htm" />
+			<mvc:mapping path="/product_details/**" />
+			<mvc:mapping path="/category/**" />
+			<bean class="ptithcm.interceptor.GlobalInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
